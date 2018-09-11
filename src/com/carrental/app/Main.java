@@ -10,7 +10,6 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
-	TextField etUserID;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
