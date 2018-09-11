@@ -1,5 +1,7 @@
 package com.carrental.app;
 	
+import com.carrental.controller.MainController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -10,10 +12,14 @@ import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
+	MainController controller;
+	private static final String SOURCE_FXML_NAME = "car_rental_ui.fxml";
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-	        Parent root = FXMLLoader.load(getClass().getResource("car_rental_ui.fxml"));
+	        Parent root = FXMLLoader.load(getClass().getResource(SOURCE_FXML_NAME));
+	        
 	        
 //			BorderPane root = new BorderPane();
 //			Scene scene = new Scene(root,400,400);
