@@ -1,23 +1,18 @@
 package com.carrental.models;
 
 
-public class Car {
+public abstract class Car {
 
 	private long carID;
 	private String registerationNumber;
-
 	private String carBrand;
 	private String color;
-	private int seats;
-	private int luggage;
 	private int rentalFees;
 
-	Car(long carID, String carBrand,String registerationNumber, String color, int seats, int luggage, int rentalFees) {
+	Car(long carID, String carBrand,String registerationNumber, String color, int rentalFees) {
 		this.carID = carID;
 		this.registerationNumber = registerationNumber;
 		this.color = color;
-		this.seats = seats;
-		this.luggage = luggage;
 		this.rentalFees = rentalFees;
 		this.carBrand = carBrand;
 	}
@@ -37,14 +32,6 @@ public class Car {
 		return color;
 	}
 
-	public int getSeats() {
-		return seats;
-	}
-
-	public int getLuggage() {
-		return luggage;
-	}
-
 	public int getRentalFees() {
 		return rentalFees;
 	}
@@ -55,10 +42,14 @@ public class Car {
 		str = "Car Brand : "+carBrand+"\n"
 				+"Registeration Number : "+registerationNumber+"\n"
 				+"Color : "+color+"\n"
-				+"No of seats: "+seats+"\n"
-				+"Luggage Capacity : "+luggage+"\n"
+				+"No of seats: "+getSeats()+"\n"
+				+"Luggage Capacity : "+getLuggage()+"\n"
 				+"Rental Fees : "+rentalFees;
 		return str;
 	}
+	
+	public abstract int getLuggage();
+	public abstract int getSeats();
+	public abstract String getType();
 	
 }

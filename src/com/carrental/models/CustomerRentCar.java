@@ -35,16 +35,16 @@ public class CustomerRentCar {
 	public static ArrayList<CustomerRentCar> getDummyOrders(Customer customer) {
 		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
 		list.add(new CustomerRentCar(customer,
-				new Car(1, "Toyota", "11A", "Black", 4, 3, 50),
+				new Compact(1, "Toyota", "11A", "Black", 50),
 				LocalDate.of(2018, 7, 1), BOOKING_RETURNED));
 		list.add(new CustomerRentCar(customer,
-				new Car(1, "Suzuki", "192AAS", "White", 4, 2, 100),
+				new SUV(1, "Suzuki", "192AAS", "White", 100),
 				LocalDate.of(2018, 7, 7), BOOKING_RETURNED));
 		list.add(new CustomerRentCar(customer,
-				new Car(1, "Nissan", "ACC11", "Golden", 2, 4, 40),
+				new Compact(1, "Nissan", "ACC11", "Golden", 40),
 				LocalDate.of(2018, 7, 9), BOOKING_RETURNED));
 		list.add(new CustomerRentCar(customer,
-				new Car(1, "Honda", "JES1124", "Black", 4, 4, 1000),
+				new SUV(1, "Honda", "JES1124", "Black", 1000),
 				LocalDate.of(2018, 7, 11), BOOKING_RETURNED));
 		return list;
 	}
@@ -64,7 +64,7 @@ public class CustomerRentCar {
 		return String.join("\n", rentalDate.format(dateFormatter),
 				car.getColor() + " " + car.getCarBrand(),
 				"License Plate: " + car.getRegisterationNumber(),
-				"<Unknown Type>: " + car.getSeats() + " seats / " +
+				car.getType()+": " + car.getSeats() + " seats / " +
 				car.getLuggage() + " luggages",
 				"$" + car.getRentalFees());
 	}

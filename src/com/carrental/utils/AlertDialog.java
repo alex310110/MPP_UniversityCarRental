@@ -13,4 +13,8 @@ public class AlertDialog {
 
 		alert.showAndWait();
 	}
+	
+	public static void log(String logString) {
+		System.out.println(logString);
+	}
 }

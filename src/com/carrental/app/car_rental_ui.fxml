@@ -68,7 +68,7 @@
                      </padding></VBox>
                </content>
           </Tab>
-          <Tab fx:id="tabRental" text="New Rental">
+          <Tab fx:id="tabRental" onSelectionChanged="#onClickNewRental" text="New Rental">
                <content>
                   <VBox prefHeight="500.0" prefWidth="360.0" spacing="10.0">
                      <children>

@@ -75,6 +75,12 @@ public class MainController implements DataSourceReciever {
 	}
 
 	@FXML
+	protected void onClickNewRental() {
+		AlertDialog.log("Clicked on onClickNewRental");
+		
+	}
+	
+	@FXML
 	protected void onRentClick(ActionEvent e) {
 		
 	}
