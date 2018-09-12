@@ -22,6 +22,58 @@ public class Car {
 		this.carBrand = carBrand;
 	}
 	
+	
+	
+	
+	public long getCarID() {
+		return carID;
+	}
+
+
+
+
+	public String getRegisterationNumber() {
+		return registerationNumber;
+	}
+
+
+
+
+	public String getCarBrand() {
+		return carBrand;
+	}
+
+
+
+
+	public String getColor() {
+		return color;
+	}
+
+
+
+
+	public int getSeats() {
+		return seats;
+	}
+
+
+
+
+	public float getLugguage() {
+		return lugguage;
+	}
+
+
+
+
+	public float getRentalFees() {
+		return rentalFees;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		String str = "";

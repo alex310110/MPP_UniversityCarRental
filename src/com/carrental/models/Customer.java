@@ -33,5 +33,10 @@ public class Customer {
 				+"SSN : "+SSN;
 		return str;
 	}
+
+	public static Customer getDummyUser(String userID) {
+		Customer customer = new Customer(0, "Ramesh", "Kumar", "110", LocalDate.of(2000, 1,  1),"1992", "19101910");
+		return customer;
+	}
 	
 }

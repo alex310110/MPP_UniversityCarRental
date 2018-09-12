@@ -3,7 +3,10 @@ package com.carrental.controller;
 import java.util.ArrayList;
 
 import com.carrental.models.Car;
+import com.carrental.models.Contractor;
+import com.carrental.models.Customer;
 import com.carrental.models.CustomerRentCar;
+import com.carrental.utils.CustomException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +19,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class MainController implements DataSourceReciever {	
+public class MainController implements DataSourceReciever {
+	Contractor modelLayer = new Contractor();
 	@FXML
 	private TextField etUserID;
 	@FXML
@@ -64,27 +68,36 @@ public class MainController implements DataSourceReciever {
 	}
 
 	@FXML
-	protected void onRentClicked(ActionEvent e) {
+	protected void onRentClick(ActionEvent e) {
 
 	}
 
 	@FXML
 	protected void handleSwitchUser(ActionEvent event) {
-		
+		try {
+			Customer customer = modelLayer.getUserDetails(etUserID.getText().toString());
+			taUserDetail.setText(customer.toString());
+			modelLayer.getCustomerOrders(customer, this);
+		} catch (CustomException e) {
+			lvOrders.getItems().clear();
+			taUserDetail.setText("");
+		}
 	}
 
 	@Override
 	public void onRecievedOrderList(ArrayList<CustomerRentCar> listOrders) {
-		
+		lvOrders.getItems().clear();
+		for (CustomerRentCar cRC : listOrders)
+			lvOrders.getItems().add(cRC.toString());
 	}
 
 	@Override
 	public void onRecievedAvailableCarList(ArrayList<Car> listCars) {
-		
+
 	}
 
 	@Override
 	public void onRecievedCarsList(ArrayList<String> list) {
-		
+
 	}
 }

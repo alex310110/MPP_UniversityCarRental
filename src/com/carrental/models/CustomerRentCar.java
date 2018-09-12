@@ -1,6 +1,8 @@
 package com.carrental.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class CustomerRentCar {
 
@@ -10,6 +12,11 @@ public class CustomerRentCar {
 	private int bookingStatus;
 	private String updateAt;
 	
+	public static int BOOKING_CANCELED = -1;
+	public static int BOOKING_BOOKED = 1;
+	public static int BOOKING_RETURNED = 0;
+	
+	
 	
 
 	CustomerRentCar(Customer customer, Car car, LocalDate date, int bookingStatus) {
@@ -18,6 +25,33 @@ public class CustomerRentCar {
 		this.rentalDate = date;
 		this.bookingStatus = bookingStatus;
 		
+	}
+
+
+
+	public static ArrayList<CustomerRentCar> getDummyOrders(Customer customer) {
+		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
+		list.add(new CustomerRentCar(customer, 
+				new Car(1, "Toyota", "11A", "Black",4,120, 1),
+				LocalDate.of(2018, 7, 1), BOOKING_RETURNED));
+		list.add(new CustomerRentCar(customer, 
+				new Car(1, "Suzuki", "192AAS", "White",4,120, 1),
+				LocalDate.of(2018, 7, 7), BOOKING_RETURNED));
+		list.add(new CustomerRentCar(customer, 
+				new Car(1, "Nissan", "ACC11", "Golden",2,120, 1),
+				LocalDate.of(2018, 7, 9), BOOKING_RETURNED));
+		list.add(new CustomerRentCar(customer, 
+				new Car(1, "Honda", "JES1124", "Black",4,120, 1),
+				LocalDate.of(2018, 7, 11), BOOKING_RETURNED));
+		return list;
+	}
+	
+	@Override
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+
+		String str = ""+rentalDate.format(formatter)+"\t"+car.getCarBrand();
+		return str;
 	}
 	
 	
