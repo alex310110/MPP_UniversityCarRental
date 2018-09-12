@@ -11,7 +11,7 @@ public interface DataSourceReciever {
 	
 	public void onRecievedAvailableCarList(ArrayList<Car> listCars);
 	
-	public void onRecievedCarsList(ArrayList<String> list);
+	public void onRecievedCarTypes(ArrayList<String> list);
 
 
 }

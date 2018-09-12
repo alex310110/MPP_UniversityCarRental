@@ -1,5 +1,7 @@
 package com.carrental.models;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public abstract class Car {
 
@@ -9,13 +11,14 @@ public abstract class Car {
 	private String color;
 	private int rentalFees;
 
-	Car(long carID, String carBrand,String registerationNumber, String color, int rentalFees) {
+	Car(long carID, String carBrand, String registerationNumber, String color, int rentalFees) {
 		this.carID = carID;
 		this.registerationNumber = registerationNumber;
 		this.color = color;
 		this.rentalFees = rentalFees;
 		this.carBrand = carBrand;
 	}
+
 	public long getCarID() {
 		return carID;
 	}
@@ -39,17 +42,34 @@ public abstract class Car {
 	@Override
 	public String toString() {
 		String str = "";
-		str = "Car Brand : "+carBrand+"\n"
-				+"Registeration Number : "+registerationNumber+"\n"
-				+"Color : "+color+"\n"
-				+"No of seats: "+getSeats()+"\n"
-				+"Luggage Capacity : "+getLuggage()+"\n"
-				+"Rental Fees : "+rentalFees;
+		str =  color +" "+carBrand +" "+getType() +" $"+rentalFees ;
 		return str;
 	}
 	
-	public abstract int getLuggage();
-	public abstract int getSeats();
-	public abstract String getType();
 	
+	public String getCarDetails() {
+		String str = "";
+		str = "Car Brand : " + carBrand + "\n" + "Registeration Number : " + registerationNumber + "\n" + "Color : "
+				+ color + "\n" + "No of seats: " + getSeats() + "\n" + "Luggage Capacity : " + getLuggage() + "\n"
+				+ "Rental Fees : " + rentalFees;
+		return str;
+	}
+
+	public abstract int getLuggage();
+
+	public abstract int getSeats();
+
+	public abstract String getType();
+
+	public static ArrayList<Car> getTempCarsList() {
+
+		ArrayList<Car> list = new ArrayList<Car>();
+		list.add(new Compact(1, "Toyota", "11A", "Black", 50));
+		list.add(new SUV(1, "Suzuki", "192AAS", "White", 100));
+		list.add(new Compact(1, "Nissan", "ACC11", "Golden", 40));
+
+		return list;
+
+	}
+
 }

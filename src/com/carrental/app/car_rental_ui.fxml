@@ -73,11 +73,11 @@
                   <VBox prefHeight="500.0" prefWidth="360.0" spacing="10.0">
                      <children>
                         <Label fx:id="labelRentalDate" text="Rental Date" />
-                        <DatePicker fx:id="datePicker" prefHeight="23.0" prefWidth="100000.0" promptText="Select Date" />
+                        <DatePicker fx:id="datePicker" editable="false" prefHeight="23.0" prefWidth="100000.0" />
                         <Label fx:id="labelCarType" text="Car Type" />
                         <ChoiceBox fx:id="cbCarType" prefHeight="23.0" prefWidth="100000.0" />
                         <Label fx:id="labelAvailableCar" text="Available Cars" />
-                        <ListView fx:id="lvAvailableCars" prefHeight="100000.0" prefWidth="100000.0" />
+                        <ListView fx:id="lvAvailableCars" onMouseClicked="#onClickCarListItem" prefHeight="100000.0" prefWidth="100000.0" />
                         <Label fx:id="labelCarDetail" text="Car Detail" />
                         <TextArea fx:id="taCarDetail" editable="false" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" prefWidth="100000.0" />
                         <Button fx:id="btnRent" mnemonicParsing="false" onAction="#onRentClick" prefWidth="100000.0" text="Rent" />

@@ -1,5 +1,6 @@
 package com.carrental.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.carrental.models.Car;
@@ -60,11 +61,11 @@ public class MainController implements DataSourceReciever {
 	@FXML
 	private Label labelAvailableCar;
 	@FXML
-	private ListView<String> lvAvailableCars;
+	private ListView<Car> lvAvailableCars;
 	@FXML
 	private Label labelCarDetail;
 	@FXML
-	private TextArea taCarDetails;
+	private TextArea taCarDetail;
 	@FXML
 	private Button btnRent;
 
@@ -77,6 +78,13 @@ public class MainController implements DataSourceReciever {
 	@FXML
 	protected void onClickNewRental() {
 		AlertDialog.log("Clicked on onClickNewRental");
+		datePicker.setValue(LocalDate.now());
+		try {
+			modelLayer.getAvailableCars(LocalDate.now(), this);
+		} catch (CustomException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -99,6 +107,22 @@ public class MainController implements DataSourceReciever {
 				btnCancelOrder.setDisable(false);
 			else 
 				btnCancelOrder.setDisable(true);
+			
+		}
+    }
+	
+	
+	@FXML
+    protected void onClickCarListItem(MouseEvent arg0) {
+		Car car = lvAvailableCars.getSelectionModel().getSelectedItem();
+		AlertDialog.log(car.toString());
+		if (car == null) {
+			taCarDetail.clear();
+			btnRent.setDisable(true);
+		}
+		else {
+			taCarDetail.setText(car.getCarDetails());
+			btnRent.setDisable(false);
 			
 		}
     }
@@ -127,11 +151,20 @@ public class MainController implements DataSourceReciever {
 
 	@Override
 	public void onRecievedAvailableCarList(ArrayList<Car> listCars) {
-
+		lvAvailableCars.getItems().clear();
+		lvAvailableCars.getItems().addAll(listCars);
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("All");
+		for(Car c: listCars)
+			list.add(c.getType());
+		onRecievedCarTypes(list);
+			
 	}
 
 	@Override
-	public void onRecievedCarsList(ArrayList<String> list) {
+	public void onRecievedCarTypes(ArrayList<String> list) {
+		cbCarType.getItems().clear();
+		cbCarType.getItems().addAll(list);
 
 	}
 }
