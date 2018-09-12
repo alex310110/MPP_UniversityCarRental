@@ -55,7 +55,7 @@
       </VBox>
    </left>
    <center>
-      <TabPane prefHeight="529.0" prefWidth="294.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="infoTabPane" prefHeight="529.0" prefWidth="294.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab fx:id="tabOrderDetails" text="Order Detail">
                <content>

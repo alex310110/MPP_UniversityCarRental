@@ -8,7 +8,7 @@ import com.carrental.utils.CustomException;
 
 public class Contractor {
 	
-	public Customer getUserDetails(String userID) throws CustomException {
+	public Customer getUser(String userID) throws CustomException {
 		if(userID == null || userID.trim().isEmpty())
 			throw new CustomException("Customer ID can not be empty.");
 		return Customer.getDummyUser(userID);
@@ -41,5 +41,11 @@ public class Contractor {
 		types.add("Compact");
 		types.add("SUV");
 		dataSource.onRecievedCarTypes(types);
+	}
+
+	public CustomerRentCar createOrder(Customer user, LocalDate date, Car car) throws CustomException {
+		if (user == null || date == null || car == null)
+			throw new CustomException("Null user, date or car");
+		return CustomerRentCar.createOrder(user, date, car);
 	}
 }
