@@ -1,7 +1,7 @@
 package com.carrental.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 
 import com.carrental.models.Car;
 import com.carrental.models.Contractor;
@@ -151,18 +151,16 @@ public class MainController implements DataSourceReciever {
 	public void onRecievedAvailableCarList(ArrayList<Car> listCars) {
 		lvAvailableCars.getItems().clear();
 		lvAvailableCars.getItems().addAll(listCars);
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("All");
+		Set<String> types = new HashSet<String>();
+		types.add("All");
 		for(Car c: listCars)
-			list.add(c.getType());
-		onRecievedCarTypes(list);
-			
+			types.add(c.getType());
+		onRecievedCarTypes(new ArrayList<String>(types));
 	}
 
 	@Override
 	public void onRecievedCarTypes(ArrayList<String> list) {
 		cbCarType.getItems().clear();
 		cbCarType.getItems().addAll(list);
-
 	}
 }
