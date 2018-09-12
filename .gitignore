@@ -42,7 +42,7 @@ local.properties
 .tern-project
 
 # TeXlipse plugin
-.texlipse
+.texlipse`
 
 # STS (Spring Tool Suite)
 .springBeans
@@ -57,3 +57,9 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+*.xml
+*.properties
+*.class
+*.iml
+out/
