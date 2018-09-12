@@ -115,15 +115,13 @@ public class MainController implements DataSourceReciever {
 	@FXML
     protected void onClickCarListItem(MouseEvent arg0) {
 		Car car = lvAvailableCars.getSelectionModel().getSelectedItem();
-		AlertDialog.log(car.toString());
 		if (car == null) {
 			taCarDetail.clear();
 			btnRent.setDisable(true);
 		}
 		else {
-			taCarDetail.setText(car.getCarDetails());
+			taCarDetail.setText(car.getFormattedDetail());
 			btnRent.setDisable(false);
-			
 		}
     }
 	

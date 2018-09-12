@@ -46,13 +46,12 @@ public abstract class Car {
 		return str;
 	}
 	
-	
-	public String getCarDetails() {
-		String str = "";
-		str = "Car Brand : " + carBrand + "\n" + "Registeration Number : " + registerationNumber + "\n" + "Color : "
-				+ color + "\n" + "No of seats: " + getSeats() + "\n" + "Luggage Capacity : " + getLuggage() + "\n"
-				+ "Rental Fees : " + rentalFees;
-		return str;
+	public String getFormattedDetail() {
+		return String.join("\n", getColor() + " " + getCarBrand(),
+				"License Plate: " + getRegisterationNumber(),
+				getType() + ": " +
+				getSeats() + " seats / " + getLuggage() + " luggages",
+				"$" + getRentalFees());
 	}
 
 	public abstract int getLuggage();
