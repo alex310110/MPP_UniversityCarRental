@@ -1,15 +1,20 @@
 package com.carrental.controller;
 
+import java.awt.Component;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import com.carrental.models.Car;
 import com.carrental.models.Contractor;
 import com.carrental.models.Customer;
 import com.carrental.models.CustomerRentCar;
+import com.carrental.utils.AlertDialog;
 import com.carrental.utils.CustomException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -20,6 +25,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class MainController implements DataSourceReciever {
+	
 	Contractor modelLayer = new Contractor();
 	@FXML
 	private TextField etUserID;
@@ -81,6 +87,7 @@ public class MainController implements DataSourceReciever {
 		} catch (CustomException e) {
 			lvOrders.getItems().clear();
 			taUserDetail.setText("");
+			AlertDialog.showAlert(e.getLocalizedMessage());
 		}
 	}
 
