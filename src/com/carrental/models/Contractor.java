@@ -27,6 +27,7 @@ public class Contractor {
 		{
 			Model.DBLayer.newDBLayer();
 			ResultSet rs = Model.DBLayer.ExecuteSQL("Select * From Customer Where customerID = " + userID);
+			boolean isContainsData = false;
 					if(rs == null)
 					{
 						throw new CustomException("Customer ID not found. Please try different ID.");
@@ -36,7 +37,7 @@ public class Contractor {
 						try {
 							Customer cus = null;
 							while (rs.next()) {
-
+								isContainsData = true;
 								try {
 									cus = new Customer(rs.getLong("customerID"), rs.getString("fName"), rs.getString("lName"),
 											rs.getString("gender"), rs.getDate("DOB").toLocalDate(),
@@ -45,7 +46,10 @@ public class Contractor {
 									e.printStackTrace();
 								}
 							}
+							if(isContainsData)
 							return cus;
+							else
+								throw new CustomException("Customer ID not found. Please provide valid customer");
 						}
 						catch(Exception e)
 						{
