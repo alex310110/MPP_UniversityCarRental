@@ -46,13 +46,21 @@ public class CustomerRentCar {
 		return list;
 	}
 	
+	
 	@Override
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
-
 		String str = ""+rentalDate.format(formatter)+"\t"+car.getCarBrand();
 		return str;
 	}
+
+	
+	public String getDetails() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+		String str = ""+rentalDate.format(formatter)+"\t"+car.getCarBrand();
+		return str;
+	}
+
 	
 	
 }

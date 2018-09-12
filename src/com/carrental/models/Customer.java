@@ -1,22 +1,23 @@
 package com.carrental.models;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Customer {
 	private long customerID;
 	private String fName;
 	private String lName;
-	private String SSN;
+	private String gender;
 	private LocalDate DOB;
 	private String licenseNumber;
 	private String universityID;
 	
 
-	Customer(long customerID, String fName, String lName, String SSN, LocalDate DOB, String licenseNumber, String universityID) {
+	Customer(long customerID, String fName, String lName, String gender, LocalDate DOB, String licenseNumber, String universityID) {
 		this.customerID = customerID;
 		this.fName = fName;
 		this.lName = lName;
-		this.SSN = SSN;
+		this.gender = gender;
 		this.DOB = DOB;
 		this.licenseNumber = licenseNumber;
 		this.universityID = universityID;
@@ -26,11 +27,11 @@ public class Customer {
 	public String toString() {
 		String str = "";
 		str = "ID : "+universityID+"\n"
-				+"First Name : "+fName+"\n"
-				+"Last Name : "+lName+"\n"
-				+"Date of Birth: "+DOB.getDayOfMonth()+"/"+DOB.getDayOfMonth()+"/"+DOB.getYear()+"\n"
-				+"License : "+licenseNumber+"\n"
-				+"SSN : "+SSN;
+				+"Name : "+fName+" "+lName+"\n"
+//				+"Date of Birth: "+DOB.getDayOfMonth()+"/"+DOB.getDayOfMonth()+"/"+DOB.getYear()+"\n"
+//				+"License : "+licenseNumber+"\n"
+				+ "Age : "+Period.between(DOB, LocalDate.now()).getYears()+"\n"
+				+"Gender : "+gender;
 		return str;
 	}
 
