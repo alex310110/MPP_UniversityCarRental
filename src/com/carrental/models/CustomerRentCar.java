@@ -10,8 +10,9 @@ public class CustomerRentCar {
 	private Customer customer;
 	private LocalDate rentalDate;
 	private int bookingStatus;
+
 	private String updateAt;
-	
+
 	public static int BOOKING_CANCELED = -1;
 	public static int BOOKING_BOOKED = 1;
 	public static int BOOKING_RETURNED = 0;
@@ -26,6 +27,11 @@ public class CustomerRentCar {
 		this.dateFormatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
 	}
 
+
+	public int getBookingStatus() {
+		return bookingStatus;
+	}
+	
 	public static ArrayList<CustomerRentCar> getDummyOrders(Customer customer) {
 		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
 		list.add(new CustomerRentCar(customer,

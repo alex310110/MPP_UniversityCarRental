@@ -70,7 +70,8 @@ public class MainController implements DataSourceReciever {
 
 	@FXML
 	protected void onCancelOrder(ActionEvent e) {
-
+		btnCancelOrder.setDisable(true);
+		//todo database query to udpate the data and refresh the list
 	}
 
 	@FXML
@@ -87,7 +88,12 @@ public class MainController implements DataSourceReciever {
 		}
 		else {
 			taOrderDetail.setText(order.getFormattedDetail());
-			btnCancelOrder.setDisable(false);
+			
+			if(order.getBookingStatus() == CustomerRentCar.BOOKING_BOOKED)
+				btnCancelOrder.setDisable(false);
+			else 
+				btnCancelOrder.setDisable(true);
+			
 		}
     }
 	
@@ -110,12 +116,7 @@ public class MainController implements DataSourceReciever {
 	public void onRecievedOrderList(ArrayList<CustomerRentCar> listOrders) {
 		lvOrders.getItems().clear();
 		for (CustomerRentCar cRC : listOrders)
-////<<<<<<< HEAD
-//			lvOrders.getItems().add(cRC.toString());
-		
-//=======
 			lvOrders.getItems().add(cRC);
-//>>>>>>> d004c9417fb0dcc611c622b3f47716201d189ecd
 	}
 
 	@Override
