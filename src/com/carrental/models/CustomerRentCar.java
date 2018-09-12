@@ -27,7 +27,6 @@ public class CustomerRentCar {
 		this.dateFormatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
 	}
 
-
 	public int getBookingStatus() {
 		return bookingStatus;
 	}

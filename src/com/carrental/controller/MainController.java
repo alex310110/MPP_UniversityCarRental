@@ -11,9 +11,6 @@ import com.carrental.utils.AlertDialog;
 import com.carrental.utils.CustomException;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
