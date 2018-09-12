@@ -23,8 +23,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class MainController implements DataSourceReciever {
-	
 	Contractor modelLayer = new Contractor();
+	Customer user;
+	
 	@FXML
 	private TextField etUserID;
 	@FXML
@@ -74,15 +75,30 @@ public class MainController implements DataSourceReciever {
 
 	@FXML
 	protected void onClickNewRental() {
-		AlertDialog.log("Clicked on onClickNewRental");
-		datePicker.setValue(LocalDate.now());
+		if (datePicker.getValue() == null)
+			datePicker.setValue(LocalDate.now());
 		try {
-			modelLayer.getAvailableCars(LocalDate.now(), this);
+			modelLayer.getCarTypes(this);
+			cbCarType.setValue("All");
 		} catch (CustomException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		lvAvailableCars.getItems().clear();
+		taCarDetail.clear();
+		btnRent.setDisable(true);
+	}
+
+	@FXML
+	protected void onQueryClicked() {
+		try {
+			modelLayer.getAvailableCars(LocalDate.now(), cbCarType.getValue(), this);
+		} catch (CustomException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		taCarDetail.clear();
+		btnRent.setDisable(true);
 	}
 	
 	@FXML
@@ -104,10 +120,8 @@ public class MainController implements DataSourceReciever {
 				btnCancelOrder.setDisable(false);
 			else 
 				btnCancelOrder.setDisable(true);
-			
 		}
     }
-	
 	
 	@FXML
     protected void onClickCarListItem(MouseEvent arg0) {
@@ -125,9 +139,9 @@ public class MainController implements DataSourceReciever {
 	@FXML
 	protected void handleSwitchUser(ActionEvent event) {
 		try {
-			Customer customer = modelLayer.getUserDetails(etUserID.getText().toString());
-			taUserDetail.setText(customer.toString());
-			modelLayer.getCustomerOrders(customer, this);
+			user = modelLayer.getUserDetails(etUserID.getText().toString());
+			taUserDetail.setText(user.toString());
+			modelLayer.getCustomerOrders(user, this);
 		} catch (CustomException e) {
 			lvOrders.getItems().clear();
 			taUserDetail.clear();
@@ -138,26 +152,22 @@ public class MainController implements DataSourceReciever {
 	}
 
 	@Override
-	public void onRecievedOrderList(ArrayList<CustomerRentCar> listOrders) {
+	public void onRecievedOrderList(List<CustomerRentCar> listOrders) {
 		lvOrders.getItems().clear();
 		for (CustomerRentCar cRC : listOrders)
 			lvOrders.getItems().add(cRC);
 	}
 
 	@Override
-	public void onRecievedAvailableCarList(ArrayList<Car> listCars) {
+	public void onRecievedAvailableCarList(List<Car> cars) {
 		lvAvailableCars.getItems().clear();
-		lvAvailableCars.getItems().addAll(listCars);
-		Set<String> types = new HashSet<String>();
-		types.add("All");
-		for(Car c: listCars)
-			types.add(c.getType());
-		onRecievedCarTypes(new ArrayList<String>(types));
+		lvAvailableCars.getItems().addAll(cars);
 	}
 
 	@Override
-	public void onRecievedCarTypes(ArrayList<String> list) {
+	public void onRecievedCarTypes(List<String> list) {
 		cbCarType.getItems().clear();
+		cbCarType.getItems().add("All");
 		cbCarType.getItems().addAll(list);
 	}
 }

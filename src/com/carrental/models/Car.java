@@ -1,6 +1,6 @@
 package com.carrental.models;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public abstract class Car {
 
@@ -59,9 +59,9 @@ public abstract class Car {
 
 	public abstract String getType();
 
-	public static ArrayList<Car> getTempCarsList() {
+	public static List<Car> getTempCarsList() {
 
-		ArrayList<Car> list = new ArrayList<Car>();
+		List<Car> list = new ArrayList<Car>();
 		list.add(new Compact(1, "Toyota", "11A", "Black", 50));
 		list.add(new SUV(1, "Suzuki", "192AAS", "White", 100));
 		list.add(new Compact(1, "Nissan", "ACC11", "Golden", 40));
