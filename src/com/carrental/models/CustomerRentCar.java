@@ -27,7 +27,6 @@ public class CustomerRentCar {
 		this.dateFormatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
 	}
 
-
 	public int getBookingStatus() {
 		return bookingStatus;
 	}
@@ -56,16 +55,8 @@ public class CustomerRentCar {
 		String str = ""+rentalDate.format(formatter)+"\t"+car.getCarBrand();
 		return str;
 	}
-
-	
-	
 	
 	public String getFormattedDetail() {
-		return String.join("\n", rentalDate.format(dateFormatter),
-				car.getColor() + " " + car.getCarBrand(),
-				"License Plate: " + car.getRegisterationNumber(),
-				car.getType()+": " + car.getSeats() + " seats / " +
-				car.getLuggage() + " luggages",
-				"$" + car.getRentalFees());
+		return rentalDate.format(dateFormatter) + car.getFormattedDetail();
 	}
 }

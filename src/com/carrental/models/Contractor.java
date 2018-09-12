@@ -3,10 +3,9 @@ package com.carrental.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 
 import com.carrental.controller.DataSourceReciever;
-import com.carrental.controller.MainController;
 import com.carrental.utils.CustomException;
 
 
@@ -67,8 +66,24 @@ public class Contractor {
 		
 	}
 	
-	public void getAvailableCars(LocalDate date, DataSourceReciever dataSource) throws CustomException {
+	public void getAvailableCars(LocalDate date, String type, DataSourceReciever dataSource) throws CustomException {
 		if(dataSource == null) return;
-		dataSource.onRecievedAvailableCarList(Car.getTempCarsList());
+		List<Car> cars = Car.getTempCarsList();
+		List<Car> filtered = new ArrayList<>();
+		for (Car c : cars) {
+			if(c.getType().equals(type) || type.equals("All")) {
+				filtered.add(c);
+			}
+		}
+		dataSource.onRecievedAvailableCarList(filtered);
+	}
+	
+	public void getCarTypes(DataSourceReciever dataSource) throws CustomException {
+		if(dataSource == null) return;
+		// mock
+		List<String> types = new ArrayList<>();
+		types.add("Compact");
+		types.add("SUV");
+		dataSource.onRecievedCarTypes(types);
 	}
 }

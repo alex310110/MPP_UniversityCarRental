@@ -6,6 +6,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carrental.controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.carrental.controller.MainController">
    <left>
       <VBox prefHeight="553.0" prefWidth="247.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -76,6 +77,8 @@
                         <DatePicker fx:id="datePicker" editable="false" prefHeight="23.0" prefWidth="100000.0" />
                         <Label fx:id="labelCarType" text="Car Type" />
                         <ChoiceBox fx:id="cbCarType" prefHeight="23.0" prefWidth="100000.0" />
+                        <Button mnemonicParsing="false" onAction="#onQueryClicked" prefHeight="23.0" prefWidth="100000.0" text="Search Available Cars" />
+                        <Separator prefWidth="200.0" />
                         <Label fx:id="labelAvailableCar" text="Available Cars" />
                         <ListView fx:id="lvAvailableCars" onMouseClicked="#onClickCarListItem" prefHeight="100000.0" prefWidth="100000.0" />
                         <Label fx:id="labelCarDetail" text="Car Detail" />
