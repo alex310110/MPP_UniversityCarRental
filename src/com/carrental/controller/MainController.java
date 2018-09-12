@@ -1,9 +1,6 @@
 package com.carrental.controller;
 
-import java.awt.Component;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 import com.carrental.models.Car;
 import com.carrental.models.Contractor;
@@ -14,7 +11,6 @@ import com.carrental.utils.CustomException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -23,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 public class MainController implements DataSourceReciever {
 	
@@ -40,7 +37,7 @@ public class MainController implements DataSourceReciever {
 	@FXML
 	private Label labelOrders;
 	@FXML
-	private ListView<String> lvOrders;
+	private ListView<CustomerRentCar> lvOrders;
 	@FXML
 	private Tab tabOrderDetails;
 	@FXML
@@ -75,9 +72,22 @@ public class MainController implements DataSourceReciever {
 
 	@FXML
 	protected void onRentClick(ActionEvent e) {
-
+		
 	}
 
+	@FXML
+    protected void handleViewOrder(MouseEvent arg0) {
+		CustomerRentCar order = lvOrders.getSelectionModel().getSelectedItem();
+		if (order == null) {
+			taOrderDetail.clear();
+			btnCancelOrder.setDisable(true);
+		}
+		else {
+			taOrderDetail.setText(order.getFormattedDetail());
+			btnCancelOrder.setDisable(false);
+		}
+    }
+	
 	@FXML
 	protected void handleSwitchUser(ActionEvent event) {
 		try {
@@ -86,16 +96,18 @@ public class MainController implements DataSourceReciever {
 			modelLayer.getCustomerOrders(customer, this);
 		} catch (CustomException e) {
 			lvOrders.getItems().clear();
-			taUserDetail.setText("");
+			taUserDetail.clear();
 			AlertDialog.showAlert(e.getLocalizedMessage());
 		}
+		taOrderDetail.clear();
+		btnCancelOrder.setDisable(true);
 	}
 
 	@Override
 	public void onRecievedOrderList(ArrayList<CustomerRentCar> listOrders) {
 		lvOrders.getItems().clear();
 		for (CustomerRentCar cRC : listOrders)
-			lvOrders.getItems().add(cRC.toString());
+			lvOrders.getItems().add(cRC);
 	}
 
 	@Override

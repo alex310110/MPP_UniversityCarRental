@@ -9,70 +9,45 @@ public class Car {
 	private String carBrand;
 	private String color;
 	private int seats;
-	private float lugguage;
-	private float rentalFees;
+	private int luggage;
+	private int rentalFees;
 
-	Car(long carID, String carBrand,String registerationNumber, String color, int seats, float lugguage, float rentalFees) {
+	Car(long carID, String carBrand,String registerationNumber, String color, int seats, int luggage, int rentalFees) {
 		this.carID = carID;
 		this.registerationNumber = registerationNumber;
 		this.color = color;
 		this.seats = seats;
-		this.lugguage = lugguage;
+		this.luggage = luggage;
 		this.rentalFees = rentalFees;
 		this.carBrand = carBrand;
 	}
-	
-	
-	
-	
 	public long getCarID() {
 		return carID;
 	}
-
-
-
 
 	public String getRegisterationNumber() {
 		return registerationNumber;
 	}
 
-
-
-
 	public String getCarBrand() {
 		return carBrand;
 	}
-
-
-
 
 	public String getColor() {
 		return color;
 	}
 
-
-
-
 	public int getSeats() {
 		return seats;
 	}
 
-
-
-
-	public float getLugguage() {
-		return lugguage;
+	public int getLuggage() {
+		return luggage;
 	}
 
-
-
-
-	public float getRentalFees() {
+	public int getRentalFees() {
 		return rentalFees;
 	}
-
-
-
 
 	@Override
 	public String toString() {
@@ -81,7 +56,7 @@ public class Car {
 				+"Registeration Number : "+registerationNumber+"\n"
 				+"Color : "+color+"\n"
 				+"No of seats: "+seats+"\n"
-				+"Luggage Capacity : "+lugguage+"\n"
+				+"Luggage Capacity : "+luggage+"\n"
 				+"Rental Fees : "+rentalFees;
 		return str;
 	}
