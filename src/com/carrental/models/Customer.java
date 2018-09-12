@@ -1,5 +1,7 @@
 package com.carrental.models;
 
+import com.carrental.utils.CustomException;
+
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -33,8 +35,14 @@ public class Customer {
 		return str;
 	}
 
-	public static Customer getDummyUser(String userID) {
-		Customer customer = new Customer(0, "Ilia", "Nan", "Male", LocalDate.of(2000, 1, 1), "1992", "19101910");
+	public static Customer getDummyUser(String userID) throws CustomException {
+		//Customer customer = new Customer(0, "Ilia", "Nan", "Male", LocalDate.of(2000, 1, 1), "1992", "19101910");
+		Customer customer = null;
+		try {
+			customer = Contractor.getCustomerDetails(userID);
+		} catch (CustomException e) {
+			throw new CustomException("Customer ID can not be empty.");
+		}
 		return customer;
 	}
 

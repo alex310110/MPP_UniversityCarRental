@@ -130,7 +130,7 @@ public class MainController implements DataSourceReciever {
 	@FXML
 	protected void handleSwitchUser(ActionEvent event) {
 		try {
-			Customer customer = modelLayer.getUserDetails(etUserID.getText().toString());
+			Customer customer = modelLayer.getCustomerDetails(etUserID.getText().toString());
 			taUserDetail.setText(customer.toString());
 			modelLayer.getCustomerOrders(customer, this);
 		} catch (CustomException e) {
