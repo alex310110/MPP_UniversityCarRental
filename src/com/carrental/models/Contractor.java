@@ -86,4 +86,10 @@ public class Contractor {
 		types.add("SUV");
 		dataSource.onRecievedCarTypes(types);
 	}
+
+	public CustomerRentCar createOrder(Customer user, LocalDate date, Car car) throws CustomException {
+		if (user == null || date == null || car == null)
+			throw new CustomException("Null user, date or car");
+		return CustomerRentCar.createOrder(user, date, car);
+	}
 }

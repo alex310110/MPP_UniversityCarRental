@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import com.carrental.utils.CustomException;
+
 public class CustomerRentCar {
 
 	private Car car;
@@ -19,7 +21,7 @@ public class CustomerRentCar {
 	
 	DateTimeFormatter dateFormatter;
 
-	CustomerRentCar(Customer customer, Car car, LocalDate date, int bookingStatus) {
+	private CustomerRentCar(Customer customer, Car car, LocalDate date, int bookingStatus) {
 		this.customer = customer;
 		this.car = car;
 		this.rentalDate = date;
@@ -31,24 +33,6 @@ public class CustomerRentCar {
 		return bookingStatus;
 	}
 	
-	public static ArrayList<CustomerRentCar> getDummyOrders(Customer customer) {
-		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
-		list.add(new CustomerRentCar(customer,
-				new Compact(1, "Toyota", "11A", "Black", 50),
-				LocalDate.of(2018, 7, 1), BOOKING_RETURNED));
-		list.add(new CustomerRentCar(customer,
-				new SUV(1, "Suzuki", "192AAS", "White", 100),
-				LocalDate.of(2018, 7, 7), BOOKING_RETURNED));
-		list.add(new CustomerRentCar(customer,
-				new Compact(1, "Nissan", "ACC11", "Golden", 40),
-				LocalDate.of(2018, 7, 9), BOOKING_RETURNED));
-		list.add(new CustomerRentCar(customer,
-				new SUV(1, "Honda", "JES1124", "Black", 1000),
-				LocalDate.of(2018, 7, 11), BOOKING_RETURNED));
-		return list;
-	}
-
-	
 	@Override
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
@@ -57,6 +41,28 @@ public class CustomerRentCar {
 	}
 	
 	public String getFormattedDetail() {
-		return rentalDate.format(dateFormatter) + car.getFormattedDetail();
+		return rentalDate.format(dateFormatter) + "\n" + car.getFormattedDetail();
+	}
+	
+	public static ArrayList<CustomerRentCar> getDummyOrders(Customer customer) {
+		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
+		list.add(new CustomerRentCar(customer,
+				new Compact(1, "Toyota", "11A", "Black", 50),
+				LocalDate.of(2018, 7, 1), BOOKING_BOOKED));
+		list.add(new CustomerRentCar(customer,
+				new SUV(1, "Suzuki", "192AAS", "White", 100),
+				LocalDate.of(2018, 7, 7), BOOKING_BOOKED));
+		list.add(new CustomerRentCar(customer,
+				new Compact(1, "Nissan", "ACC11", "Golden", 40),
+				LocalDate.of(2018, 7, 9), BOOKING_CANCELED));
+		list.add(new CustomerRentCar(customer,
+				new SUV(1, "Honda", "JES1124", "Black", 1000),
+				LocalDate.of(2018, 7, 11), BOOKING_RETURNED));
+		return list;
+	}
+
+	public static CustomerRentCar createOrder(Customer user, LocalDate date, Car car) {
+		return new CustomerRentCar(user, car, date, BOOKING_BOOKED);
+		// TODO write database
 	}
 }

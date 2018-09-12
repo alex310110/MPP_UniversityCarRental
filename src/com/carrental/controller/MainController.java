@@ -12,20 +12,15 @@ import com.carrental.utils.CustomException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 public class MainController implements DataSourceReciever {
 	Contractor modelLayer = new Contractor();
-	Customer user;
+	Customer customer;
 	
+	@FXML
+	private TabPane infoTabPane;
 	@FXML
 	private TextField etUserID;
 	@FXML
@@ -92,7 +87,8 @@ public class MainController implements DataSourceReciever {
 	@FXML
 	protected void onQueryClicked() {
 		try {
-			modelLayer.getAvailableCars(LocalDate.now(), cbCarType.getValue(), this);
+			modelLayer.getAvailableCars(datePicker.getValue(),
+					cbCarType.getValue(), this);
 		} catch (CustomException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,7 +99,18 @@ public class MainController implements DataSourceReciever {
 	
 	@FXML
 	protected void onRentClick(ActionEvent e) {
-		
+		try {
+			CustomerRentCar order = modelLayer.createOrder(customer, datePicker.getValue(),
+					lvAvailableCars.getSelectionModel().getSelectedItem());
+			modelLayer.getCustomerOrders(customer, this);
+			infoTabPane.getSelectionModel().select(tabOrderDetails);
+			taOrderDetail.setText(order.getFormattedDetail());
+			// TODO select the order after DB works
+			btnCancelOrder.setDisable(false);
+		} catch (CustomException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -140,7 +147,7 @@ public class MainController implements DataSourceReciever {
 	protected void handleSwitchUser(ActionEvent event) {
 		try {
 
-			Customer customer = modelLayer.getCustomerDetails(etUserID.getText().toString());
+			 customer = modelLayer.getCustomerDetails(etUserID.getText().toString());
 			taUserDetail.setText(customer.toString());
 			modelLayer.getCustomerOrders(customer, this);
 		} catch (CustomException e) {
