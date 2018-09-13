@@ -3,7 +3,7 @@ package com.carrental.models;
 import java.sql.*;
 
 public class DBLayer {
-	public static final boolean isSQLServer = false;
+	public static final boolean isSQLServer = true;
     private static DBLayer ourInstance = new DBLayer();
     private static Connection con;
     public static DBLayer getInstance() {

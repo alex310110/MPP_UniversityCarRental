@@ -21,10 +21,12 @@ public class CustomerRentCar {
 	public static final int BOOKING_RETURNED = 0;
 	
 	DateTimeFormatter dateFormatter;
+	
 	public static CustomerRentCar setCustomerRentCar(Customer cus,Car car,LocalDate bookingDate,int bookingStatus,long ID)
 	{
 		return new CustomerRentCar(cus,car,bookingDate,bookingStatus,ID);
 	}
+	
 	private CustomerRentCar(Customer customer, Car car, LocalDate date, int bookingStatus,long ID) {
 		this.customer = customer;
 		this.car = car;
