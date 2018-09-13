@@ -96,4 +96,10 @@ public class Contractor {
 			throw new CustomException("Null user, date or car");
 		return CustomerRentCar.createOrder(user, date, car);
 	}
+
+	public void cancelOrder(CustomerRentCar order) throws CustomException {
+		if (order == null) throw new CustomException("Null order");
+		//TODO database query to udpate the data and refresh the list
+		order.setBookingStatus(CustomerRentCar.BOOKING_CANCELED);
+	}
 }

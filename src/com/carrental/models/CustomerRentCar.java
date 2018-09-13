@@ -15,9 +15,9 @@ public class CustomerRentCar {
 
 	private String updateAt;
 
-	public static int BOOKING_CANCELED = -1;
-	public static int BOOKING_BOOKED = 1;
-	public static int BOOKING_RETURNED = 0;
+	public static final int BOOKING_CANCELED = -1;
+	public static final int BOOKING_BOOKED = 1;
+	public static final int BOOKING_RETURNED = 0;
 	
 	DateTimeFormatter dateFormatter;
 
@@ -39,9 +39,29 @@ public class CustomerRentCar {
 		String str = ""+rentalDate.format(formatter)+"\t"+car.getCarBrand();
 		return str;
 	}
-	
+
 	public String getFormattedDetail() {
-		return rentalDate.format(dateFormatter) + "\n" + car.getFormattedDetail();
+		String ret = rentalDate.format(dateFormatter) + "\n" +
+				car.getFormattedDetail() + "\n";
+		switch(bookingStatus) {
+		case BOOKING_CANCELED:
+			ret += "CANCELLED";
+			break;
+		case BOOKING_BOOKED:
+			ret += "BOOKED";
+			break;
+		case BOOKING_RETURNED:
+			ret += "RETURNED";
+			break;
+		default:
+			ret += "UNKNOWN STATUS";
+			break;
+		}
+		return ret;
+	}
+
+	public void setBookingStatus(int status) {
+		bookingStatus = status;
 	}
 	
 	public static ArrayList<CustomerRentCar> getDummyOrders(Customer customer) {

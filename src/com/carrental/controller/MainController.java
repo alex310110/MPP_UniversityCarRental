@@ -64,8 +64,15 @@ public class MainController implements DataSourceReciever {
 
 	@FXML
 	protected void onCancelOrder(ActionEvent e) {
-		btnCancelOrder.setDisable(true);
-		//todo database query to udpate the data and refresh the list
+		CustomerRentCar order = lvOrders.getSelectionModel().getSelectedItem(); 
+		try {
+			modelLayer.cancelOrder(order);
+			taOrderDetail.setText(order.getFormattedDetail());
+			btnCancelOrder.setDisable(true);
+		} catch (CustomException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	@FXML
