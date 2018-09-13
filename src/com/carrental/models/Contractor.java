@@ -157,8 +157,17 @@ public class Contractor {
 	public static CustomerRentCar createOrder(Customer user, LocalDate date, Car car) throws CustomException {
 		if (user == null || date == null || car == null)
 			throw new CustomException("Null user, date or car");
-		CustomerRentCar customerRentCar = CustomerRentCar.setCustomerRentCar(user,car,date,1,0);
 		DBLayer.ExecuteQuery("Insert into CustomerRentCar(carID,customerID,rentalDate,bookingStatus,CRC_ID) Select "+car.getCarID() + "," + user.getCustomerID()+ "," + "'" + date+"'" +"," + CustomerRentCar.BOOKING_BOOKED + ",(Select CASE MAX(CRC_ID) WHEN NULL THEN 1 ELSE (MAX(CRC_ID) + 1) END From CustomerRentCar)");
+		ResultSet rs = DBLayer.ExecuteSQL("select MAX(CRC_ID) from CustomerRentCar");
+		long newCrcId;
+		try {
+			rs.next();
+			newCrcId = rs.getLong("");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CustomException("Failed to create new order.");
+		}
+		CustomerRentCar customerRentCar = CustomerRentCar.setCustomerRentCar(user,car,date,CustomerRentCar.BOOKING_BOOKED,newCrcId);
 
 		return customerRentCar;
 	}
