@@ -1,4 +1,4 @@
-package Model;
+package com.carrental.models;
 
 import java.sql.*;
 

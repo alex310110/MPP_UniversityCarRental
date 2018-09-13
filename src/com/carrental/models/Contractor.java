@@ -25,8 +25,8 @@ public class Contractor {
 			throw new CustomException("Customer ID can not be empty.");
 		else
 		{
-			Model.DBLayer.newDBLayer();
-			ResultSet rs = Model.DBLayer.ExecuteSQL("Select * From Customer Where customerID = " + userID);
+			DBLayer.newDBLayer();
+			ResultSet rs = DBLayer.ExecuteSQL("Select * From Customer Where customerID = " + userID);
 			boolean isContainsData = false;
 					if(rs == null)
 					{
