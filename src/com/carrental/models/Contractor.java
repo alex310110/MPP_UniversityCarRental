@@ -93,12 +93,7 @@ public class Contractor {
 		if(dataSource == null) return;
 		if(customer == null)
 			throw new CustomException("Customer can not be null.");
-		dataSource.onRecievedOrderList(CustomerRentCar.getDummyOrders(customer));
-
-	}
-
-	public static ArrayList<CustomerRentCar> getCustomerRentCar() throws CustomException
-	{
+		
 		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
 		Customer cus = null;
 		Car car = null;
@@ -133,7 +128,7 @@ public class Contractor {
 				list.add(customerRentCar);
 
 			}
-			return list;
+			dataSource.onRecievedOrderList(list);
 		}
 		catch(Exception e)
 		{
@@ -143,7 +138,6 @@ public class Contractor {
 
 	public static void getCarTypes(DataSourceReciever dataSource) throws CustomException {
 		if(dataSource == null) return;
-		// mock
 		List<String> types = new ArrayList<>();
 		types.add("Compact");
 		types.add("SUV");

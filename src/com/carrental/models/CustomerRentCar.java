@@ -2,7 +2,6 @@ package com.carrental.models;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import com.carrental.utils.CustomException;
 
@@ -68,16 +67,6 @@ public class CustomerRentCar {
 
 	public void setBookingStatus(int status) {
 		bookingStatus = status;
-	}
-	
-	public static ArrayList<CustomerRentCar> getDummyOrders(Customer customer) {
-		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
-		try {
-			list = Contractor.getCustomerRentCar();
-		} catch (CustomException e) {
-			e.printStackTrace();
-		}
-		return list;
 	}
 
 	public static CustomerRentCar createOrder(Customer user, LocalDate date, Car car) {
