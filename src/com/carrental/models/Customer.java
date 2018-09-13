@@ -14,6 +14,7 @@ public class Customer {
 	private String licenseNumber;
 	private String universityID;
 	public long getCustomerID(){return customerID;}
+	
 	Customer(long customerID, String fName, String lName, String gender, LocalDate DOB, String licenseNumber,
 			String universityID) {
 		this.customerID = customerID;

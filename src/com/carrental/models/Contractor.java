@@ -102,7 +102,11 @@ public class Contractor {
 		int rentalStatus;
 		long CRC_ID ;
 		try {
-			ResultSet rs = DBLayer.ExecuteSQL("Select * From Customer Cus inner join CustomerRentCar CRC on CRC.customerID =Cus.customerID Inner join Car C on C.carID = CRC.carID");
+			ResultSet rs = DBLayer.ExecuteSQL(
+				"Select * From " +
+				"Customer Cus inner join CustomerRentCar CRC on CRC.customerID =Cus.customerID " +
+				"Inner join Car C on C.carID = CRC.carID " +
+				"where Cus.customerID = " + customer.getCustomerID());
 			while (rs.next()) {
 				cus = new Customer(rs.getLong("customerID"), rs.getString("fName"), rs.getString("lName"),
 						rs.getString("gender"), rs.getDate("DOB").toLocalDate(),
