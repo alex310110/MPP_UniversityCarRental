@@ -28,7 +28,6 @@ public class Contractor {
 		boolean isContainsData = false;
 		if (rs == null)
 			throw new CustomException("Customer ID not found. Please try different ID.");
-		
 		try {
 			Customer cus = null;
 			while (rs.next()) {
@@ -52,12 +51,24 @@ public class Contractor {
 
 	public static void getAvailableCars(LocalDate date, String type, DataSourceReciever dataSource) throws CustomException {
 		if(dataSource == null) return;
-		List<Car> cars = new ArrayList<Car>();
+		
 		DBLayer.newDBLayer();
-		ResultSet rs = DBLayer.ExecuteSQL("Select * From Car");
+		List<Car> cars = new ArrayList<Car>();
+		String sql = "Select * From Car where " +
+			(
+				// inextensible schema!!!
+				type.equals("All") ? "" :
+				type.equals("SUV") ? "Car.isSUV = 1 and " :
+				"Car.isSUV = 0 and "
+			) +
+			"carID not in (" +
+			"select distinct carID from CustomerRentCar " +
+			"where bookingStatus = 1 and rentalDate = '" +
+			date.toString() + "')";
+		ResultSet rs = DBLayer.ExecuteSQL(sql);
+		
 		try {
 			while (rs.next()) {
-
 				Car car;
 				if (rs.getInt("isSUV") == 1) {
 					car = new SUV(rs.getLong("carID"),
@@ -80,13 +91,7 @@ public class Contractor {
 		{
 			throw new CustomException("Car data not found.");
 		}
-		List<Car> filtered = new ArrayList<>();
-		for (Car c : cars) {
-			if(c.getType().equals(type) || type.equals("All")) {
-				filtered.add(c);
-			}
-		}
-		dataSource.onRecievedAvailableCarList(filtered);
+		dataSource.onRecievedAvailableCarList(cars);
 	}
 
 	public static void getCustomerOrders(Customer customer, DataSourceReciever dataSource) throws CustomException {
