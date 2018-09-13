@@ -111,7 +111,8 @@ public class Contractor {
 				"Select * From " +
 				"Customer Cus inner join CustomerRentCar CRC on CRC.customerID =Cus.customerID " +
 				"Inner join Car C on C.carID = CRC.carID " +
-				"where Cus.customerID = " + customer.getCustomerID());
+				"where Cus.customerID = " + customer.getCustomerID() +
+				" order by rentalDate desc");
 			while (rs.next()) {
 				cus = new Customer(rs.getLong("customerID"), rs.getString("fName"), rs.getString("lName"),
 						rs.getString("gender"), rs.getDate("DOB").toLocalDate(),
