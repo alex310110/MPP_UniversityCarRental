@@ -123,6 +123,7 @@ public class MainController implements DataSourceReciever {
 			btnCancelOrder.setDisable(true);
 		}
 		else {
+			infoTabPane.getSelectionModel().select(tabOrderDetails);
 			taOrderDetail.setText(order.getFormattedDetail());
 			
 			if(order.getBookingStatus() == CustomerRentCar.BOOKING_BOOKED)
