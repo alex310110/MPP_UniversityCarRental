@@ -3,6 +3,7 @@ package com.carrental.models;
 import java.sql.*;
 
 public class DBLayer {
+	public static final boolean isSQLServer = false;
     private static DBLayer ourInstance = new DBLayer();
     private static Connection con;
     private static Statement stmt;
@@ -21,7 +22,11 @@ public class DBLayer {
         {
             try
             {
-                String host = "jdbc:sqlserver://localhost;databaseName=UniversityCarRental;user=sa;password=zia";
+                String host = null;
+                if(isSQLServer)
+                	host = "jdbc:sqlserver://localhost;databaseName=UniversityCarRental;user=sa;password=zia";
+                else host = "jdbc:mysql://127.0.0.1/university_car_rental?" +
+                                            "user=root&password=";
                 con = DriverManager.getConnection(host);
             }
             catch (SQLException e)
