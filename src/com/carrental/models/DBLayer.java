@@ -5,7 +5,6 @@ import java.sql.*;
 public class DBLayer {
     private static DBLayer ourInstance = new DBLayer();
     private static Connection con;
-    private static Statement stmt;
     public static DBLayer getInstance() {
         return ourInstance;
     }
@@ -30,6 +29,7 @@ public class DBLayer {
             }
         }
     }
+    
     public static ResultSet ExecuteSQL(String sqlStatement)
     {
         try {
@@ -45,6 +45,7 @@ public class DBLayer {
            return null;
         }
     }
+    
     public static void ExecuteQuery(String sqlStatement)
     {
         try {
@@ -56,7 +57,6 @@ public class DBLayer {
             stmt.execute(SQL);
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
     }
 }

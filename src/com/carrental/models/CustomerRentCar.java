@@ -17,8 +17,6 @@ public class CustomerRentCar {
 	public Customer getCustomer(){return customer;}
 	public long getCRC_ID(){return CRC_ID;}
 
-	private String updateAt;
-
 	public static final int BOOKING_CANCELED = -1;
 	public static final int BOOKING_BOOKED = 1;
 	public static final int BOOKING_RETURNED = 0;
@@ -79,19 +77,6 @@ public class CustomerRentCar {
 		} catch (CustomException e) {
 			e.printStackTrace();
 		}
-		/*list.add(new CustomerRentCar(customer,
-				new Compact(1, "Toyota", "11A", "Black", 50),
-				LocalDate.of(2018, 7, 1), BOOKING_BOOKED));
-		list.add(new CustomerRentCar(customer,
-				new SUV(1, "Suzuki", "192AAS", "White", 100),
-				LocalDate.of(2018, 7, 7), BOOKING_BOOKED));
-		list.add(new CustomerRentCar(customer,
-				new Compact(1, "Nissan", "ACC11", "Golden", 40),
-				LocalDate.of(2018, 7, 9), BOOKING_CANCELED));
-		list.add(new CustomerRentCar(customer,
-				new SUV(1, "Honda", "JES1124", "Black", 1000),
-				LocalDate.of(2018, 7, 11), BOOKING_RETURNED));
-*/
 		return list;
 	}
 
