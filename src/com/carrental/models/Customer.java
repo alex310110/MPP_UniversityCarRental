@@ -15,7 +15,7 @@ public class Customer {
 	private LocalDate DOB;
 	private String licenseNumber;
 	private String universityID;
-
+	public long getCustomerID(){return customerID;}
 	Customer(long customerID, String fName, String lName, String gender, LocalDate DOB, String licenseNumber,
 			String universityID) {
 		this.customerID = customerID;
@@ -45,5 +45,4 @@ public class Customer {
 		}
 		return customer;
 	}
-
 }

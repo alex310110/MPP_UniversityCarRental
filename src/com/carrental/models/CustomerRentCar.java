@@ -8,10 +8,14 @@ import com.carrental.utils.CustomException;
 
 public class CustomerRentCar {
 
+	private long CRC_ID;
 	private Car car;
 	private Customer customer;
 	private LocalDate rentalDate;
 	private int bookingStatus;
+	public Car getCar(){return car;}
+	public Customer getCustomer(){return customer;}
+	public long getCRC_ID(){return CRC_ID;}
 
 	private String updateAt;
 
@@ -20,13 +24,17 @@ public class CustomerRentCar {
 	public static final int BOOKING_RETURNED = 0;
 	
 	DateTimeFormatter dateFormatter;
-
-	private CustomerRentCar(Customer customer, Car car, LocalDate date, int bookingStatus) {
+	public static CustomerRentCar setCustomerRentCar(Customer cus,Car car,LocalDate bookingDate,int bookingStatus,long ID)
+	{
+		return new CustomerRentCar(cus,car,bookingDate,bookingStatus,ID);
+	}
+	private CustomerRentCar(Customer customer, Car car, LocalDate date, int bookingStatus,long ID) {
 		this.customer = customer;
 		this.car = car;
 		this.rentalDate = date;
 		this.bookingStatus = bookingStatus;
 		this.dateFormatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+		this.CRC_ID = ID;
 	}
 
 	public int getBookingStatus() {
@@ -66,7 +74,12 @@ public class CustomerRentCar {
 	
 	public static ArrayList<CustomerRentCar> getDummyOrders(Customer customer) {
 		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
-		list.add(new CustomerRentCar(customer,
+		try {
+			list = Contractor.getCustomerRentCar();
+		} catch (CustomException e) {
+			e.printStackTrace();
+		}
+		/*list.add(new CustomerRentCar(customer,
 				new Compact(1, "Toyota", "11A", "Black", 50),
 				LocalDate.of(2018, 7, 1), BOOKING_BOOKED));
 		list.add(new CustomerRentCar(customer,
@@ -78,11 +91,19 @@ public class CustomerRentCar {
 		list.add(new CustomerRentCar(customer,
 				new SUV(1, "Honda", "JES1124", "Black", 1000),
 				LocalDate.of(2018, 7, 11), BOOKING_RETURNED));
+*/
 		return list;
 	}
 
 	public static CustomerRentCar createOrder(Customer user, LocalDate date, Car car) {
-		return new CustomerRentCar(user, car, date, BOOKING_BOOKED);
-		// TODO write database
+		CustomerRentCar customerRentCar = null;
+		try {
+			customerRentCar = Contractor.createOrder(user,date,car);
+
+		} catch (CustomException e) {
+			e.printStackTrace();
+		}
+
+		return customerRentCar;
 	}
 }

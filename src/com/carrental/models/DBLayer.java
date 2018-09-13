@@ -1,4 +1,4 @@
-package com.carrental.models;
+package Model;
 
 import java.sql.*;
 
@@ -43,6 +43,20 @@ public class DBLayer {
         } catch (SQLException e) {
             e.printStackTrace();
            return null;
+        }
+    }
+    public static void ExecuteQuery(String sqlStatement)
+    {
+        try {
+            if (con == null) {
+                newDBLayer();
+            }
+            Statement stmt = con.createStatement();
+            String SQL = sqlStatement;
+            stmt.execute(SQL);
+        } catch (SQLException e) {
+            e.printStackTrace();
+
         }
     }
 }
