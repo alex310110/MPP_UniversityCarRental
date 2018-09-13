@@ -69,8 +69,7 @@ public class MainController implements DataSourceReciever {
 			taOrderDetail.setText(order.getFormattedDetail());
 			btnCancelOrder.setDisable(true);
 		} catch (CustomException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			AlertDialog.showAlert(e1.getLocalizedMessage());
 		}
 	}
 
@@ -82,8 +81,7 @@ public class MainController implements DataSourceReciever {
 			Contractor.getCarTypes(this);
 			cbCarType.setValue("All");
 		} catch (CustomException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			AlertDialog.showAlert(e.getLocalizedMessage());
 		}
 		lvAvailableCars.getItems().clear();
 		taCarDetail.clear();
@@ -96,8 +94,7 @@ public class MainController implements DataSourceReciever {
 			Contractor.getAvailableCars(datePicker.getValue(),
 					cbCarType.getValue(), this);
 		} catch (CustomException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			AlertDialog.showAlert(e.getLocalizedMessage());
 		}
 		taCarDetail.clear();
 		btnRent.setDisable(true);
@@ -111,11 +108,10 @@ public class MainController implements DataSourceReciever {
 			Contractor.getCustomerOrders(customer, this);
 			infoTabPane.getSelectionModel().select(tabOrderDetails);
 			taOrderDetail.setText(order.getFormattedDetail());
-			// TODO select the order after DB works
+			lvOrders.getSelectionModel().select(order);
 			btnCancelOrder.setDisable(false);
 		} catch (CustomException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			AlertDialog.showAlert(e1.getLocalizedMessage());
 		}
 	}
 

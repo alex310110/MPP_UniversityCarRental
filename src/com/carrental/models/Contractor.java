@@ -19,47 +19,35 @@ DBLayer.newDBLayer();
 			}
  */
 public class Contractor {
-	
 	public static Customer getCustomerDetails(String userID) throws CustomException {
-		if(userID == null || userID.trim().isEmpty())
+		if (userID == null || userID.trim().isEmpty())
 			throw new CustomException("Customer ID can not be empty.");
-		else
-		{
-			DBLayer.newDBLayer();
-			ResultSet rs = DBLayer.ExecuteSQL("Select * From Customer Where customerID = " + userID);
-			boolean isContainsData = false;
-					if(rs == null)
-					{
-						throw new CustomException("Customer ID not found. Please try different ID.");
-					}
-					else
-					{
-						try {
-							Customer cus = null;
-							while (rs.next()) {
-								isContainsData = true;
-								try {
-									cus = new Customer(rs.getLong("customerID"), rs.getString("fName"), rs.getString("lName"),
-											rs.getString("gender"), rs.getDate("DOB").toLocalDate(),
-											rs.getString("licenseNumber"), rs.getString("universityID"));
-								} catch (SQLException e) {
-									e.printStackTrace();
-								}
-							}
-							if(isContainsData)
-							return cus;
-							else
-								throw new CustomException("Customer ID not found. Please provide valid customer");
-						}
-						catch(Exception e)
-						{
-							throw new CustomException("Customer ID not found. Please try different ID.");
-						}
-
-
-					}
+		
+		DBLayer.newDBLayer();
+		ResultSet rs = DBLayer.ExecuteSQL("Select * From Customer Where customerID = " + userID);
+		boolean isContainsData = false;
+		if (rs == null)
+			throw new CustomException("Customer ID not found. Please try different ID.");
+		
+		try {
+			Customer cus = null;
+			while (rs.next()) {
+				isContainsData = true;
+				try {
+					cus = new Customer(rs.getLong("customerID"), rs.getString("fName"), rs.getString("lName"),
+							rs.getString("gender"), rs.getDate("DOB").toLocalDate(),
+							rs.getString("licenseNumber"), rs.getString("universityID"));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (isContainsData)
+				return cus;
+			else
+				throw new CustomException("Customer ID not found. Please provide valid customer");
+		} catch (Exception e) {
+			throw new CustomException("Customer ID not found. Please try different ID.");
 		}
-		//return Customer.getDummyUser(userID);
 	}
 
 	public static void getAvailableCars(LocalDate date, String type, DataSourceReciever dataSource) throws CustomException {
@@ -105,12 +93,7 @@ public class Contractor {
 		if(dataSource == null) return;
 		if(customer == null)
 			throw new CustomException("Customer can not be null.");
-		dataSource.onRecievedOrderList(CustomerRentCar.getDummyOrders(customer));
-
-	}
-
-	public static ArrayList<CustomerRentCar> getCustomerRentCar() throws CustomException
-	{
+		
 		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
 		Customer cus = null;
 		Car car = null;
@@ -145,32 +128,16 @@ public class Contractor {
 				list.add(customerRentCar);
 
 			}
-			return list;
+			dataSource.onRecievedOrderList(list);
 		}
 		catch(Exception e)
 		{
 			throw new CustomException("Customer ID not found. Please try different ID.");
 		}
-
-		/*list.add(new CustomerRentCar(customer,
-				new Compact(1, "Toyota", "11A", "Black", 50),
-				LocalDate.of(2018, 7, 1), BOOKING_BOOKED));
-		list.add(new CustomerRentCar(customer,
-				new SUV(1, "Suzuki", "192AAS", "White", 100),
-				LocalDate.of(2018, 7, 7), BOOKING_BOOKED));
-		list.add(new CustomerRentCar(customer,
-				new Compact(1, "Nissan", "ACC11", "Golden", 40),
-				LocalDate.of(2018, 7, 9), BOOKING_CANCELED));
-		list.add(new CustomerRentCar(customer,
-				new SUV(1, "Honda", "JES1124", "Black", 1000),
-				LocalDate.of(2018, 7, 11), BOOKING_RETURNED));
-
-		return list;*/
 	}
 
 	public static void getCarTypes(DataSourceReciever dataSource) throws CustomException {
 		if(dataSource == null) return;
-		// mock
 		List<String> types = new ArrayList<>();
 		types.add("Compact");
 		types.add("SUV");
@@ -188,9 +155,7 @@ public class Contractor {
 
 	public static void cancelOrder(CustomerRentCar order) throws CustomException {
 		if (order == null) throw new CustomException("Null order");
-		//TODO database query to udpate the data and refresh the list
 		DBLayer.ExecuteQuery("Update CustomerRentCar Set bookingStatus = " + CustomerRentCar.BOOKING_CANCELED  + " Where  CRC_ID = " + order.getCRC_ID());
-
 		order.setBookingStatus(CustomerRentCar.BOOKING_CANCELED);
 	}
 
