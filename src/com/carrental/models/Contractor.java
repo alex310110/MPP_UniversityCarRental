@@ -25,8 +25,8 @@ public class Contractor {
 			throw new CustomException("Customer ID can not be empty.");
 		else
 		{
-			Model.DBLayer.newDBLayer();
-			ResultSet rs = Model.DBLayer.ExecuteSQL("Select * From Customer Where customerID = " + userID);
+			DBLayer.newDBLayer();
+			ResultSet rs = DBLayer.ExecuteSQL("Select * From Customer Where customerID = " + userID);
 			boolean isContainsData = false;
 					if(rs == null)
 					{
@@ -65,8 +65,8 @@ public class Contractor {
 	public static void getAvailableCars(LocalDate date, String type, DataSourceReciever dataSource) throws CustomException {
 		if(dataSource == null) return;
 		List<Car> cars = new ArrayList<Car>();
-		Model.DBLayer.newDBLayer();
-		ResultSet rs = Model.DBLayer.ExecuteSQL("Select * From Car");
+		DBLayer.newDBLayer();
+		ResultSet rs = DBLayer.ExecuteSQL("Select * From Car");
 		try {
 			while (rs.next()) {
 
@@ -101,7 +101,7 @@ public class Contractor {
 		dataSource.onRecievedAvailableCarList(filtered);
 	}
 
-	public void getCustomerOrders(Customer customer, DataSourceReciever dataSource) throws CustomException {
+	public static void getCustomerOrders(Customer customer, DataSourceReciever dataSource) throws CustomException {
 		if(dataSource == null) return;
 		if(customer == null)
 			throw new CustomException("Customer can not be null.");
@@ -114,12 +114,12 @@ public class Contractor {
 		ArrayList<CustomerRentCar> list = new ArrayList<CustomerRentCar>();
 		Customer cus = null;
 		Car car = null;
-		Model.DBLayer.newDBLayer();
+		DBLayer.newDBLayer();
 		LocalDate rentalDate;
 		int rentalStatus;
 		long CRC_ID ;
 		try {
-			ResultSet rs = Model.DBLayer.ExecuteSQL("Select * From Customer Cus inner join CustomerRentCar CRC on CRC.customerID =Cus.customerID Inner join Car C on C.carID = CRC.carID");
+			ResultSet rs = DBLayer.ExecuteSQL("Select * From Customer Cus inner join CustomerRentCar CRC on CRC.customerID =Cus.customerID Inner join Car C on C.carID = CRC.carID");
 			while (rs.next()) {
 				cus = new Customer(rs.getLong("customerID"), rs.getString("fName"), rs.getString("lName"),
 						rs.getString("gender"), rs.getDate("DOB").toLocalDate(),
@@ -168,7 +168,7 @@ public class Contractor {
 		return list;*/
 	}
 
-	public void getCarTypes(DataSourceReciever dataSource) throws CustomException {
+	public static void getCarTypes(DataSourceReciever dataSource) throws CustomException {
 		if(dataSource == null) return;
 		// mock
 		List<String> types = new ArrayList<>();
@@ -181,15 +181,15 @@ public class Contractor {
 		if (user == null || date == null || car == null)
 			throw new CustomException("Null user, date or car");
 		CustomerRentCar customerRentCar = CustomerRentCar.setCustomerRentCar(user,car,date,1,0);
-		Model.DBLayer.ExecuteQuery("Insert into CustomerRentCar(carID,customerID,rentalDate,bookingStatus,CRC_ID) Select "+car.getCarID() + "," + user.getCustomerID()+ "," + "'" + date+"'" +"," + CustomerRentCar.BOOKING_BOOKED + ",(Select CASE MAX(CRC_ID) WHEN NULL THEN 1 ELSE (MAX(CRC_ID) + 1) END From CustomerRentCar)");
+		DBLayer.ExecuteQuery("Insert into CustomerRentCar(carID,customerID,rentalDate,bookingStatus,CRC_ID) Select "+car.getCarID() + "," + user.getCustomerID()+ "," + "'" + date+"'" +"," + CustomerRentCar.BOOKING_BOOKED + ",(Select CASE MAX(CRC_ID) WHEN NULL THEN 1 ELSE (MAX(CRC_ID) + 1) END From CustomerRentCar)");
 
 		return customerRentCar;
 	}
 
-	public void cancelOrder(CustomerRentCar order) throws CustomException {
+	public static void cancelOrder(CustomerRentCar order) throws CustomException {
 		if (order == null) throw new CustomException("Null order");
 		//TODO database query to udpate the data and refresh the list
-		Model.DBLayer.ExecuteQuery("Update CustomerRentCar Set bookingStatus = " + CustomerRentCar.BOOKING_CANCELED  + " Where  CRC_ID = " + order.getCRC_ID());
+		DBLayer.ExecuteQuery("Update CustomerRentCar Set bookingStatus = " + CustomerRentCar.BOOKING_CANCELED  + " Where  CRC_ID = " + order.getCRC_ID());
 
 		order.setBookingStatus(CustomerRentCar.BOOKING_CANCELED);
 	}

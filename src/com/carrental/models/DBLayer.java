@@ -1,4 +1,4 @@
-package Model;
+package com.carrental.models;
 
 import java.sql.*;
 
@@ -21,7 +21,7 @@ public class DBLayer {
         {
             try
             {
-                String host = "jdbc:sqlserver://DESKTOP-R9V9595\\ZIALT;databaseName=UniversityCarRental;user=sa;password=zia";
+                String host = "jdbc:sqlserver://localhost;databaseName=UniversityCarRental;user=sa;password=zia";
                 con = DriverManager.getConnection(host);
             }
             catch (SQLException e)

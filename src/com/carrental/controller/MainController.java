@@ -16,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 public class MainController implements DataSourceReciever {
-	Contractor modelLayer = new Contractor();
 	Customer customer;
 	
 	@FXML
@@ -66,7 +65,7 @@ public class MainController implements DataSourceReciever {
 	protected void onCancelOrder(ActionEvent e) {
 		CustomerRentCar order = lvOrders.getSelectionModel().getSelectedItem(); 
 		try {
-			modelLayer.cancelOrder(order);
+			Contractor.cancelOrder(order);
 			taOrderDetail.setText(order.getFormattedDetail());
 			btnCancelOrder.setDisable(true);
 		} catch (CustomException e1) {
@@ -80,7 +79,7 @@ public class MainController implements DataSourceReciever {
 		if (datePicker.getValue() == null)
 			datePicker.setValue(LocalDate.now());
 		try {
-			modelLayer.getCarTypes(this);
+			Contractor.getCarTypes(this);
 			cbCarType.setValue("All");
 		} catch (CustomException e) {
 			// TODO Auto-generated catch block
@@ -94,7 +93,7 @@ public class MainController implements DataSourceReciever {
 	@FXML
 	protected void onQueryClicked() {
 		try {
-			modelLayer.getAvailableCars(datePicker.getValue(),
+			Contractor.getAvailableCars(datePicker.getValue(),
 					cbCarType.getValue(), this);
 		} catch (CustomException e) {
 			// TODO Auto-generated catch block
@@ -107,9 +106,9 @@ public class MainController implements DataSourceReciever {
 	@FXML
 	protected void onRentClick(ActionEvent e) {
 		try {
-			CustomerRentCar order = modelLayer.createOrder(customer, datePicker.getValue(),
+			CustomerRentCar order = Contractor.createOrder(customer, datePicker.getValue(),
 					lvAvailableCars.getSelectionModel().getSelectedItem());
-			modelLayer.getCustomerOrders(customer, this);
+			Contractor.getCustomerOrders(customer, this);
 			infoTabPane.getSelectionModel().select(tabOrderDetails);
 			taOrderDetail.setText(order.getFormattedDetail());
 			// TODO select the order after DB works
@@ -154,9 +153,9 @@ public class MainController implements DataSourceReciever {
 	protected void handleSwitchUser(ActionEvent event) {
 		try {
 
-			 customer = modelLayer.getCustomerDetails(etUserID.getText().toString());
+			customer = Contractor.getCustomerDetails(etUserID.getText().toString());
 			taUserDetail.setText(customer.toString());
-			modelLayer.getCustomerOrders(customer, this);
+			Contractor.getCustomerOrders(customer, this);
 		} catch (CustomException e) {
 			lvOrders.getItems().clear();
 			taUserDetail.clear();
