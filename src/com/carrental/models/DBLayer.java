@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class DBLayer {
-	public static final boolean isSQLServer = true;
+	public static final boolean isSQLServer = false;
     private static DBLayer ourInstance = new DBLayer();
     private static Connection con;
     public static DBLayer getInstance() {

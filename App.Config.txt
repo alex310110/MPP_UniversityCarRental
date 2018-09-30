@@ -1,1 +1,1 @@
-jdbc:sqlserver://DESKTOP-R9V9595\ZIALT;databaseName=UniversityCarRental;user=sa;password=zia
+dbc:mysql://127.0.0.1/university_car_rental?user=root&password=
